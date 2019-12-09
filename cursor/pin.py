@@ -1,15 +1,17 @@
-# BEGIN SPINNER_THREAD
 import threading
 import itertools
 import time
-import sys
+# import sys
 from cursor_control import *
 
-class Signal: # <1>
+
+class Signal:  # <1>
     go = True
+
 
 def spin(msg, signal):  # <2>
     write, flush = sys.stdout.write, sys.stdout.flush
+    status = ""
     for char in itertools.cycle('|/-\\'):  # <3>
         status = char + ' ' + msg
         write(status)
@@ -17,7 +19,7 @@ def spin(msg, signal):  # <2>
         time.sleep(.1)
         write('\x08' * len(status))  # <4>
         if not signal.go:
-              break
+            break
     write(' ' * len(status) + '\x08' * len(status))  # <6>
 
 
@@ -41,11 +43,10 @@ def supervisor():  # <9>
 
 def main():
     result = supervisor()  # <15>
-    # print('Answer:', result)
+    print('Answer:', result)
 
 
 if __name__ == '__main__':
     hide()
     main()
     show()
-# END SPINNER_THREAD
