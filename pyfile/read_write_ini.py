@@ -1,3 +1,19 @@
+"""
+Product: read_write_ini.py
+Author: @zihan
+Date: 2019/12/09
+Current ver: 0.0.0.1
+
+History:
+    v0.0.0.1    1. is_ini_exist：判断INI文件是否存在，返回值：True -- 存在，False -- 不存在
+                2. get_sections：传入INI文件路径，获取INI文件的sections列表，返回值：list。
+                                如果列表长度为0，则说明INI文件中没有section
+                3. get_keys_ini：传入参数INI文件路径，section的名字，获取下面所有的键值。返回值：None/list。
+                                如果返回值为None，说明section不存在
+                4. get_value_ini：传入参数INI文件路径，section的名字，key的名字，获取对应的value值。返回值：None/list。
+                                如果返回值为None，可能section错误，也可能key错误，看它的打印消息是什么
+"""
+
 import configparser
 import os
 # from print_color import *
@@ -59,6 +75,7 @@ def get_key_value_dic(ini_path, sec_name):
 def get_keys_ini(ini_path, section):
     keys = None
     if not is_section_exist(ini_path, section):
+        # print_red("%s section is not exist in %s" % (section, ini_path))
         return keys
     else:
         keys = get_keys(ini_path, section)
@@ -88,6 +105,7 @@ def get_value_ini(ini_path, section, key):
 def get_key_value_dic_ini(ini_path, section):
     keys_values = None
     if not is_section_exist(ini_path, section):
+        # print_red("%s section is not exist in %s" % (section, ini_path))
         return keys_values
     else:
         keys_values = get_key_value_dic(ini_path, section)
